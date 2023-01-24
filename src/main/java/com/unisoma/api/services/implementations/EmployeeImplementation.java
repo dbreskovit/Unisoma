@@ -20,11 +20,24 @@ public class EmployeeImplementation implements EmployeeService {
     @Override
     public String registerEmployee(EmployeeModel employee) {
         if (verifyCpf(employee.getCpf()))
-            return "CPF já Cadastrado";
+            return "Funcionário já cadastrado";
         employeeRepository.save(employee);
         addressRepository.save(employee.getEndereco());
 
         return "Funcionário Registrado";
+    }
+
+    @Override
+    public Object updateEmployeeByCpf(String cpf, EmployeeModel employeeNew) {
+        if (verifyCpf(cpf)) {
+            EmployeeModel employeeOld = employeeRepository.findByCpf(cpf);
+            employeeRepository.deleteById(employeeOld.getId());
+            addressRepository.deleteById(employeeOld.getEndereco().getId());
+            employeeRepository.save(employeeNew);
+            addressRepository.save(employeeNew.getEndereco());
+            return "Funcionário Atualizado";
+        }
+        return "Funcionário não encontrado";
     }
 
     @Override

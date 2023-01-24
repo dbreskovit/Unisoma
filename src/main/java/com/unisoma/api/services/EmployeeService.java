@@ -9,6 +9,8 @@ public interface EmployeeService {
 
     public String registerEmployee(EmployeeModel employee);
 
+    Object updateEmployeeByCpf(String cpf, EmployeeModel employee);
+
     public Object findByCpf(String cpf);
 
     public Object findAll();

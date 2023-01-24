@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,15 @@ public class EmployeeController {
         if (!employeeImplementation.verifyCpf(cpf))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário não encontrado");
         return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.findByCpf(cpf));
+    }
+
+    @PutMapping("/{cpf}")
+    public ResponseEntity<Object> updateEmployeeByCpf(@PathVariable String cpf,
+            @RequestBody @Valid EmployeeDTO employeeDTO) {
+        if (!employeeImplementation.verifyCpf(cpf))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário não encontrado");
+        var employee = EmployeeModel.converter(employeeDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.updateEmployeeByCpf(cpf, employee));
     }
 
     @DeleteMapping

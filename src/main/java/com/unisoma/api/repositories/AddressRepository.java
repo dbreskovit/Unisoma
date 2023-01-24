@@ -9,4 +9,5 @@ import com.unisoma.api.models.AddressModel;
 public interface AddressRepository extends JpaRepository<AddressModel, UUID> {
 
     void deleteById(UUID id);
+
 }

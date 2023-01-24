@@ -37,6 +37,9 @@ public class EmployeeDTO {
     private AddressDTO endereco;
 
     @NotNull(message = "Salary is required")
-    private int salario;
+    private double salario;
 
+    public EmployeeDTO() {
+
+    }
 }

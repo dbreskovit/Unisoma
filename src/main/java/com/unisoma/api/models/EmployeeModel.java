@@ -3,6 +3,7 @@ package com.unisoma.api.models;
 import java.io.Serializable;
 import java.util.UUID;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import com.unisoma.api.models.dtos.AddressDTO;
@@ -18,8 +19,10 @@ import lombok.Data;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "TB_EMPLOYEES")
 public class EmployeeModel implements Serializable {
+
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -42,16 +45,24 @@ public class EmployeeModel implements Serializable {
     private AddressModel endereco;
 
     @Column(nullable = false)
-    private int salario;
+    private double salario;
 
     public static EmployeeModel converter(EmployeeDTO employeeDTO) {
         EmployeeModel employeeModel = new EmployeeModel();
         AddressDTO addressDTO = employeeDTO.getEndereco();
         AddressModel addressModel = new AddressModel();
-        BeanUtils.copyProperties(employeeDTO, employeeModel);
         BeanUtils.copyProperties(addressDTO, addressModel);
+        BeanUtils.copyProperties(employeeDTO, employeeModel);
         employeeModel.setEndereco(addressModel);
         return employeeModel;
     }
 
+    public EmployeeModel(String nome, String cpf, String dataNasc, String telefone, AddressModel endereco, double salario) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.salario = salario;
+    }
 }
