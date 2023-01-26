@@ -31,6 +31,12 @@ Durante a semana de desenvolvimento, foi utilizado de um Quadro Kanban, como for
 
 Disponível em: [Kanban](https://trello.com/b/qpvVZEUT/teste-de-recrutamento-api-restful-de-funcion%C3%A1rios)
 
+## ⚙️ Pré-requisitos
+
+- Java 19
+- Maven
+- PostgreSQL
+
 ## 🧪 Tecnologias
 
 - Spring Boot
@@ -39,12 +45,6 @@ Disponível em: [Kanban](https://trello.com/b/qpvVZEUT/teste-de-recrutamento-api
 - Postgres 
 - JUnit
 - Mock
-  
-## ⚙️ Pré-requisitos
-
-- Java 19
-- Maven
-- PostgreSQL
 
 ## 💻 Como executar
 
