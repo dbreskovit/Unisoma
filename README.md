@@ -2,7 +2,7 @@
   <img src="https://discuss.unisoma.com/uploads/default/original/1X/bd90e6889ab45ee64700b32232c2aad2ed611aa0.png" width="100px"/>
 </p>
 
-<h1 align="center">Teste de Recrutamento</h1>
+<h1 align="center">Teste Técnico UniSoma</h1>
 <p align="center">API RESTful desenvolvida durante teste de Recrutamento para a empresa Unisoma.</p>
 
 <h3 align="center">
