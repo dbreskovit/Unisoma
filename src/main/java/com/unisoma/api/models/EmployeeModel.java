@@ -1,9 +1,9 @@
 package com.unisoma.api.models;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
-import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import com.unisoma.api.models.dtos.AddressDTO;
@@ -16,11 +16,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "TB_EMPLOYEES")
 @Data
 @NoArgsConstructor
-@Table(name = "TB_EMPLOYEES")
 public class EmployeeModel implements Serializable {
 
     private static final Long serialVersionUID = 1L;
@@ -47,7 +48,28 @@ public class EmployeeModel implements Serializable {
     @Column(nullable = false)
     private double salario;
 
-    public static EmployeeModel converter(EmployeeDTO employeeDTO) {
+    public EmployeeModel(String nome, String cpf, String dataNasc,
+            String telefone, AddressModel endereco, double salario) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.salario = salario;
+    }
+
+    public EmployeeDTO converterToDTO() {
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        AddressModel addressModel = this.getEndereco();
+        AddressDTO addressDTO = new AddressDTO();
+        BeanUtils.copyProperties(addressModel, addressDTO);
+        BeanUtils.copyProperties(this, employeeDTO);
+        employeeDTO.setEndereco(addressDTO);
+        employeeDTO.setSalario(Math.round((employeeDTO.getSalario() *100) / 100));
+        return employeeDTO;
+    }
+
+    public static EmployeeModel converterToModel(EmployeeDTO employeeDTO) {
         EmployeeModel employeeModel = new EmployeeModel();
         AddressDTO addressDTO = employeeDTO.getEndereco();
         AddressModel addressModel = new AddressModel();
@@ -57,12 +79,4 @@ public class EmployeeModel implements Serializable {
         return employeeModel;
     }
 
-    public EmployeeModel(String nome, String cpf, String dataNasc, String telefone, AddressModel endereco, double salario) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.dataNasc = dataNasc;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.salario = salario;
-    }
 }

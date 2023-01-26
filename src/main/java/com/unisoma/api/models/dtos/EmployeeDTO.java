@@ -8,8 +8,10 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDTO {
 
@@ -22,7 +24,7 @@ public class EmployeeDTO {
     @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$", message = "CPF must be in the format xxx.xxx.xxx-xx")
     private String cpf;
 
-    @NotNull(message = "Date of birth is required")
+    @NotEmpty(message = "Date of birth is required")
     @Size(min = 10, max = 10, message = "Date of birth must have 10 characters")
     @Pattern(regexp = "^\\d{2}/\\d{2}/\\d{4}$", message = "Date of birth must be in the format dd/mm/yyyy")
     private String dataNasc;
@@ -39,7 +41,4 @@ public class EmployeeDTO {
     @NotNull(message = "Salary is required")
     private double salario;
 
-    public EmployeeDTO() {
-
-    }
 }

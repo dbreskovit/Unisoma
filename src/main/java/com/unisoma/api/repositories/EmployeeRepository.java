@@ -13,7 +13,4 @@ public interface EmployeeRepository extends JpaRepository<EmployeeModel, UUID> {
     boolean existsByCpf(String cpf);
 
     EmployeeModel findByCpf(String cpf);
-
-    void deleteByCpf(String cpf);
-
 }

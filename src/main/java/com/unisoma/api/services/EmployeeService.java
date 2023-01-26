@@ -7,16 +7,20 @@ import com.unisoma.api.models.EmployeeModel;
 @Service
 public interface EmployeeService {
 
-    public String registerEmployee(EmployeeModel employee);
+    String registerEmployee(EmployeeModel employee);
+
+    Object findByCpf(String cpf);
+
+    Object findAll();
 
     Object updateEmployeeByCpf(String cpf, EmployeeModel employee);
 
-    public Object findByCpf(String cpf);
+    Object deleteEmployeeByCpf(String cpf);
 
-    public Object findAll();
+    Object adjustmentSalary(String cpf);
 
-    public boolean verifyCpf(String cpf);
+    Object incomeTax(String cpf);
 
-    public void deleteAll();
+    boolean verifyCpf(String cpf);
 
 }

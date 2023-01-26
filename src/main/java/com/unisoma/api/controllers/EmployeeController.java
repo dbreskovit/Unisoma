@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.unisoma.api.models.EmployeeModel;
 import com.unisoma.api.models.dtos.EmployeeDTO;
 import com.unisoma.api.services.implementations.EmployeeImplementation;
+import com.unisoma.api.util.Validation;
 
 import jakarta.validation.Valid;
 
@@ -27,44 +28,38 @@ public class EmployeeController {
     @Autowired
     EmployeeImplementation employeeImplementation;
 
-    @PostMapping
+    @PostMapping(value = { "", "cadastrar" })
     public ResponseEntity<Object> registerEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
-        var employee = EmployeeModel.converter(employeeDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeImplementation.registerEmployee(employee));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(employeeImplementation.registerEmployee(EmployeeModel.converterToModel(employeeDTO)));
     }
 
-    @GetMapping
+    @GetMapping(value = { "", "listar" })
     public ResponseEntity<Object> getAllEmployees() {
         return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.findAll());
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping(value = { "{cpf}", "buscar/{cpf}" })
     public ResponseEntity<Object> getEmployeeByCpf(@PathVariable String cpf) {
-        if (!employeeImplementation.verifyCpf(cpf))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário não encontrado");
+        if (Validation.isCPF(cpf))
+            cpf = Validation.formatCPF(cpf);
         return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.findByCpf(cpf));
     }
 
-    @PutMapping("/{cpf}")
+    @PutMapping(value = { "/{cpf}", "atualizar/{cpf}" })
     public ResponseEntity<Object> updateEmployeeByCpf(@PathVariable String cpf,
             @RequestBody @Valid EmployeeDTO employeeDTO) {
-        if (!employeeImplementation.verifyCpf(cpf))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário não encontrado");
-        var employee = EmployeeModel.converter(employeeDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.updateEmployeeByCpf(cpf, employee));
+        if (Validation.isCPF(cpf))
+            cpf = Validation.formatCPF(cpf);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeImplementation.updateEmployeeByCpf(cpf, EmployeeModel.converterToModel(employeeDTO)));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Object> deleteAllEmployees() {
-        employeeImplementation.deleteAll();
-        return ResponseEntity.status(HttpStatus.OK).body("Todos os funcionários foram deletados");
-    }
-
-    @DeleteMapping("/{cpf}")
+    @DeleteMapping(value = { "/{cpf}", "dispensar/{cpf}" })
     public ResponseEntity<Object> deleteEmployeeByCpf(@PathVariable String cpf) {
-        if (!employeeImplementation.verifyCpf(cpf))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionário não encontrado");
-        employeeImplementation.deleteEmployeeByCpf(cpf);
-        return ResponseEntity.status(HttpStatus.OK).body("Funcionário deletado");
+        if (Validation.isCPF(cpf))
+            cpf = Validation.formatCPF(cpf);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeImplementation.deleteEmployeeByCpf(cpf));
     }
+
 }

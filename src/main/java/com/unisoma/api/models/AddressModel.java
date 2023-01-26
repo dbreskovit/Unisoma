@@ -9,13 +9,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 @Table(name = "TB_ADRESSES")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressModel implements Serializable {
 
     private static final Long serialVersionUID = 1L;
@@ -45,8 +47,8 @@ public class AddressModel implements Serializable {
     @Column
     private String cep;
 
-    public AddressModel(String logradouro, String numero, String complemento, String bairro, String cidade, String uf,
-            String cep) {
+    public AddressModel(String logradouro, String numero, String complemento,
+            String bairro, String cidade, String uf, String cep) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -55,4 +57,5 @@ public class AddressModel implements Serializable {
         this.uf = uf;
         this.cep = cep;
     }
+
 }
