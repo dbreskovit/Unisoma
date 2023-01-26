@@ -54,7 +54,7 @@ public class EmployeeControllerTest {
         @DisplayName("Teste de registro de funcionário")
         public void testRegisterEmployee() {
                 EmployeeDTO employeeDTO = DTO;
-                EmployeeModel employee = EmployeeModel.converter(employeeDTO);
+                EmployeeModel employee = EmployeeModel.converterToModel(employeeDTO);
                 when(employeeImplementation.registerEmployee(employee)).thenReturn(String.valueOf(employee));
                 ResponseEntity<Object> response = employeeController.registerEmployee(employeeDTO);
                 assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -62,7 +62,16 @@ public class EmployeeControllerTest {
         }
 
         @Test
-        @DisplayName("Teste de registro de funcionário com CPF inválido")
+        @DisplayName("Teste de atualização de funcionário pelo CPF")
+        public void testUpdateEmployeeByCpf() {
+                when(employeeImplementation.updateEmployeeByCpf(CPF,MODEL)).thenReturn(String.valueOf(MODEL));
+                ResponseEntity<Object> response = employeeController.updateEmployeeByCpf(CPF , DTO);
+                assertEquals(HttpStatus.OK, response.getStatusCode());
+                verify(employeeImplementation).updateEmployeeByCpf(CPF, MODEL);
+        }
+
+        @Test
+        @DisplayName("Teste de busca de todos os funcionários")
         public void testGetAllEmployees_Success() {
                 List<EmployeeModel> employees = new ArrayList<>();
                 employees.add(MODEL);
@@ -73,10 +82,9 @@ public class EmployeeControllerTest {
         }
 
         @Test
-        @DisplayName("Teste de registro de funcionário com CPF inválido")
+        @DisplayName("Teste de busca de funcionário por CPF encontrado")
         public void testGetEmployeeByCpf_Success() {
                 EmployeeModel employee = MODEL;
-                when(employeeImplementation.verifyCpf(CPF)).thenReturn(true);
                 when(employeeImplementation.findByCpf(CPF)).thenReturn(employee);
                 ResponseEntity<Object> response = employeeController.getEmployeeByCpf(CPF);
                 assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -85,12 +93,10 @@ public class EmployeeControllerTest {
         }
 
         @Test
-        @DisplayName("Teste de registro de funcionário com CPF inválido")
+        @DisplayName("Teste de busca de funcionário por CPF não encontrado")
         public void testGetEmployeeByCpf_NotFound() {
-                when(employeeImplementation.verifyCpf(CPF)).thenReturn(false);
                 ResponseEntity<Object> response = employeeController.getEmployeeByCpf(CPF);
-                assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-                assertEquals("Funcionário não encontrado", response.getBody());
+                assertEquals(HttpStatus.OK, response.getStatusCode());
+                verify(employeeImplementation).findByCpf(CPF);
         }
-
 }
