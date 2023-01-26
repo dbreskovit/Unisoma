@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "dee08211-5788-4a3f-9e13-a6ff55af41b3",
+		"name": "API RESTful UniSoma",
+		"description": "Mapeamento das principais rotas da API RESTful desenvolvida por Diego Breskovit durante a Prova de Recrutamento para a empresa Unisoma.\n\n1. O primeiro exercício é fazer uma API, que possibilita salvar um funcionário e Salário e também fazer o reajuste salarial conforme tabela passada pela empresa.\n2. O segundo desafio é construir uma API que calcule o imposto de renda a partir das informações da API do primeiro desafio.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25525733"
+	},
+	"item": [
+		{
+			"name": "Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				},
+				"description": "#### Descrição:\n\n- Rota responsável por verificar o _StatusCode_ da API."
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastrar Funcionário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nome\": \"Diego Breskovit\",\r\n\t\"cpf\": \"047.270.070-70\",\r\n\t\"dataNasc\": \"25/08/2005\",\r\n\t\"telefone\": \"(55) 98107-2942\",\r\n\t\"endereco\": {\r\n\t\t\"logradouro\": \"Rua Itajaí\",\r\n\t\t\"numero\": \"542\",\r\n\t\t\"complemento\": \"Casa\",\r\n\t\t\"bairro\": \"Operário\",\r\n\t\t\"cidade\": \"Tenente Portela\",\r\n\t\t\"uf\": \"RS\",\r\n\t\t\"cep\": \"98500-000\"\r\n\t},\r\n\t\"salario\": 1320.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/funcionario`\n- `http://localhost:8080/api/funcionario/cadastrar`\n    \n\n#### Descrição:\n\n- Rota responsável pelo cadastro de novos funcionários.\n    \n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/cadastrar`\n\n``` json\n{\n    \"nome\" : \"Diego Breskovit\",\n    \"cpf\" : \"047.270.070-70\",\n    \"dataNasc\" : \"25/08/2005\",\n    \"telefone\" : \"(55) 98107-2942\",\n    \"endereco\" : {\n        \"logradouro\" : \"Rua Itajaí\",\n        \"numero\" : \"542\",\n        \"complemento\" : \"Casa\",\n        \"bairro\" : \"Operário\",\n        \"cidade\" : \"Tenente Portela\",\n        \"uf\" : \"RS\",\n        \"cep\" : \"98500-000\"        \n    },\n    \"salario\" : 3002.0\n}\n\n```\n\n- Response\n    \n\n``` json\nFuncionário Registrado\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Funcionário",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nome\" : \"Diego Breskovit\",\r\n\t\"cpf\" : \"047.270.070-70\",\r\n\t\"dataNasc\" : \"25/08/2005\",\r\n\t\"telefone\" : \"(55) 98107-2942\",\r\n\t\"endereco\" : {\r\n\t\t\"logradouro\" : \"Rua Itajaí\",\r\n\t\t\"numero\" : \"542\",\r\n\t\t\"complemento\" : \"Casa\",\r\n\t\t\"bairro\" : \"Operário\",\r\n\t\t\"cidade\" : \"Tenente Portela\",\r\n\t\t\"uf\" : \"RS\",\r\n\t\t\"cep\" : \"98500-000\"\t\t\r\n\t},\r\n\t\"salario\" : 5000.0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario/047.270.070-70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario",
+						"047.270.070-70"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/funcionario/{CPF}`\n- `http://localhost:8080/api/funcionario/atualizar/{CPF}`\n    \n\n#### Descrição:\n\n- Rota responsável pela atualização de informações de funcionários.\n    \n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/atualizar/047.270.070-70`\n\n``` json\n{\n    \"nome\" : \"Diego Breskovit\",\n    \"cpf\" : \"047.270.070-70\",\n    \"dataNasc\" : \"25/08/2005\",\n    \"telefone\" : \"(55) 99999-9999\",\n    \"endereco\" : {\n        \"logradouro\" : \"Rua Itajaí\",\n        \"numero\" : \"542\",\n        \"complemento\" : \"Casa\",\n        \"bairro\" : \"Operário\",\n        \"cidade\" : \"Tenente Portela\",\n        \"uf\" : \"RS\",\n        \"cep\" : \"98500-000\"        \n    },\n    \"salario\" : 5000.0\n}\n\n```\n\n- Response\n    \n\n```\nFuncionário Atualizado\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Funcionário",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario/047.270.070-70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario",
+						"047.270.070-70"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/funcionario/{CPF}`\n- `http://localhost:8080/api/funcionario/buscar/{CPF}`\n    \n\n#### Descrição:\n\n- Rota responsável pela busca de um funcionário específico.\n    \n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/buscar/047.270.070-70`\n\n- Response\n    \n\n``` json\n{\n    \"nome\" : \"Diego Breskovit\",\n    \"cpf\" : \"047.270.070-70\",\n    \"dataNasc\" : \"25/08/2005\",\n    \"telefone\" : \"(55) 99999-9999\",\n    \"endereco\" : {\n        \"logradouro\" : \"Rua Itajaí\",\n        \"numero\" : \"542\",\n        \"complemento\" : \"Casa\",\n        \"bairro\" : \"Operário\",\n        \"cidade\" : \"Tenente Portela\",\n        \"uf\" : \"RS\",\n        \"cep\" : \"98500-000\"        \n    },\n    \"salario\" : 5000.0\n}\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar os Funcionários",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/funcionario`\n- `http://localhost:8080/api/funcionario/listar`\n    \n\n#### Descrição:\n\n- Rota responsável pela listagem de todos os funcionários.\n    \n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/listar`\n\n- Response\n    \n\n``` json\n[\n    {\n        \"nome\": \"Diego Breskovit\",\n        \"cpf\": \"047.270.070-70\",\n        \"dataNasc\": \"25/08/2005\",\n        \"telefone\": \"(55) 98107-2942\",\n        \"endereco\": {\n            \"logradouro\": \"Rua Itajaí\",\n            \"numero\": \"542\",\n            \"complemento\": \"Casa\",\n            \"bairro\": \"Operário\",\n            \"cidade\": \"Tenente Portela\",\n            \"uf\": \"RS\",\n            \"cep\": \"98500-000\"\n        },\n        \"salario\": 5000.0\n    },\n    {\n        \"nome\": \"João Pedro\",\n        \"cpf\": \"041.210.010-10\",\n        \"dataNasc\": \"01/04/1998\",\n        \"telefone\": \"(51) 98888-8888\",\n        \"endereco\": {\n            \"logradouro\": \"Rua Galvão Bueno\",\n            \"numero\": \"201\",\n            \"complemento\": \"Apto. 403\",\n            \"bairro\": \"Paulistanos da Sé\",\n            \"cidade\": \"São Paulo\",\n            \"uf\": \"SP\",\n            \"cep\": \"01506-000\"\n        },\n        \"salario\": 7000.0\n    }\n]j\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Dispensar Funcionário",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario/04727007070",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario",
+						"04727007070"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/funcionario/{CPF}`\n- `http://localhost:8080/api/funcionario/dispensar/{CPF}`\n    \n\n#### Descrição:\n\n- Rota responsável por desvicular um funcionário da empresa.\n    \n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/dispensar/041.210.010-10`\n\n- Response\n    \n\n```\nFuncionário dispensado\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Reajuste Salarial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario/aumento/047.270.070-70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario",
+						"aumento",
+						"047.270.070-70"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/aumento/{CPF}`\n- `http://localhost:8080/api/funcionario/aumento/{CPF}`\n    \n\n#### Descrição:\n\n- Rota responsável pelo calculo do novo salário do funcionário com base na tabela abaixo.\n    \n\n| Salario | Percentual |\n| --- | --- |\n| 0 - 400.00 | 15% |\n| 400.01 - 800.00 | 12% |\n| 800.01 - 1200.00 | 10% |\n| 1200.01 - 2000.00 | 7% |\n| Acima de 2000.00 | 4% |\n\n#### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/aumento/047.270.070-70`\n\n- Response\n    \n\n``` json\n{\n    \"CPF\": \"047.270.070-70\",\n    \"Novo salario\": \"R$ 5200,00\",\n    \"Reajuste ganho\": \"R$ 200,00\",\n    \"Em percentual\": \"4%\"\n}\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Imposto de Renda",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/funcionario/imposto/047.270.070-70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"funcionario",
+						"imposto",
+						"047.270.070-70"
+					]
+				},
+				"description": "#### Caminhos:\n\n- `http://localhost:8080/api/imposto/{CPF}`\n- `http://localhost:8080/api/funcionario/imposto/{CPF}`\n    \n\n#### Descrição:\n\n- Rota responsável pelo calculo do imposto de renda que o funcionário deverá pagar, segundo a tabela abaixo:\n    \n\n| Renda | Imposto de Renda |\n| --- | --- |\n| De 0.00 a R$ 2000.00 | Isento |\n| De R$ 2000.01 até 3000.00 | 8% |\n| De R$ 3000.01 até R$ 4500.00 | 18% |\n| acima de R$ 4500.00 | 28% |\n\n### Exemplo:\n\n- Request\n    \n\n`http://localhost:8080/api/funcionario/imposto/047.270.070-70`\n\n- Response\n    \n\n``` json\n{\n    \"CPF\": \"047.270.070-70\",\n    \"Imposto\": \"R$ 546,00\"\n}\n\n```"
+			},
+			"response": []
+		}
+	]
+}
