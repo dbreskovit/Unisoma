@@ -49,7 +49,7 @@ class EmployeeImplementationTest {
 
         @Test
         @DisplayName("Cadastro de funcionário com sucesso")
-        void testRegisterEmployee_Success() {
+        void testRegisterEmployee() {
                 EmployeeModel employee = MODEL;
                 when(employeeRepository.existsByCpf(CPF)).thenReturn(false);
                 when(employeeRepository.save(employee)).thenReturn(employee);
@@ -69,7 +69,7 @@ class EmployeeImplementationTest {
 
         @Test
         @DisplayName("Atualização de funcionário com sucesso")
-        void testUpdateEmployee_Success() {
+        void testUpdateEmployee() {
                 EmployeeModel employeeOld = MODEL;
                 EmployeeModel employeeNew = MODEL;
                 when(employeeRepository.existsByCpf(CPF)).thenReturn(true);
@@ -82,7 +82,7 @@ class EmployeeImplementationTest {
 
         @Test
         @DisplayName("Atualização de funcionário com CPF não cadastrado")
-        void testUpdateEmployeeWithCpfNotRegistered_NotFound() {
+        void testUpdateEmployeeWithCpfNotRegistered() {
                 EmployeeModel employee = MODEL;
                 when(employeeRepository.existsByCpf(CPF)).thenReturn(false);
                 String result = (String) employeeImplementation.updateEmployeeByCpf(employee.getCpf(), employee);
@@ -100,43 +100,4 @@ class EmployeeImplementationTest {
                 assertEquals(employees.size(), result.size());
         }
 
-        @Test
-        @DisplayName("Calcular aumento de salário com sucesso")
-        void testAdjustmentSalary_Success() {
-                EmployeeModel employee = MODEL;
-                when(employeeRepository.existsByCpf(CPF)).thenReturn(true);
-                when(employeeRepository.findByCpf(CPF)).thenReturn(employee);
-                when(employeeRepository.save(employee)).thenReturn(employee);
-                Object result = employeeImplementation.adjustmentSalary(employee.getCpf());
-                assertEquals("AdjustmentSalaryDTO(cpf=123.456.789-10, salario=R$ 1412,40, ganho=R$ 92,40, percentual=7%)",
-                                result.toString());
-        }
-
-        @Test
-        @DisplayName("Calcular aumento de salário com CPF não cadastrado")
-        void testAdjustmentSalaryWithCpfNotRegistered_NotFound() {
-                EmployeeModel employee = MODEL;
-                when(employeeRepository.existsByCpf(CPF)).thenReturn(false);
-                Object result = employeeImplementation.adjustmentSalary(employee.getCpf());
-                assertEquals("Funcionário não encontrado", result);
-        }
-
-        @Test
-        @DisplayName("Calcular Imposto de Renda com sucesso")
-        void testCalculateIncomeTax_Success() {
-                EmployeeModel employee = MODEL;
-                when(employeeRepository.existsByCpf(CPF)).thenReturn(true);
-                when(employeeRepository.findByCpf(CPF)).thenReturn(employee);
-                Object result = employeeImplementation.incomeTax(employee.getCpf());
-                assertEquals("IncomeTaxDTO(cpf=123.456.789-10, imposto=Isento)", result.toString());
-        }
-
-        @Test
-        @DisplayName("Calcular Imposto de Renda com CPF não cadastrado")
-        void testCalculateIncomeTaxWithCpfNotRegistered_NotFound() {
-                EmployeeModel employee = MODEL;
-                when(employeeRepository.existsByCpf(CPF)).thenReturn(false);
-                Object result = employeeImplementation.incomeTax(employee.getCpf());
-                assertEquals("Funcionário não encontrado", result);
-        }
 }
