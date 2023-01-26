@@ -37,7 +37,7 @@ Disponível em: [Trello](https://trello.com/b/qpvVZEUT/teste-de-recrutamento-api
 - Maven
 - PostgreSQL
 
-## 🧪 Tecnologias
+## 🚀 Tecnologias
 
 - Spring Boot
 - Maven 
