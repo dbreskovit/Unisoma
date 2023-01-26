@@ -1,7 +1,6 @@
 package com.unisoma.api.models;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -65,7 +64,7 @@ public class EmployeeModel implements Serializable {
         BeanUtils.copyProperties(addressModel, addressDTO);
         BeanUtils.copyProperties(this, employeeDTO);
         employeeDTO.setEndereco(addressDTO);
-        employeeDTO.setSalario(Math.round((employeeDTO.getSalario() *100) / 100));
+        employeeDTO.setSalario(Math.round((employeeDTO.getSalario() * 100) / 100));
         return employeeDTO;
     }
 
