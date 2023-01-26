@@ -29,7 +29,7 @@ Este projeto consiste em desenvolver uma API RESTful para atender às necessidad
 
 Durante a semana de desenvolvimento, foi utilizado de um Quadro Kanban, como forma de organizar as tarefas do projeto.
 
-Disponível em: [Kanban](https://trello.com/b/qpvVZEUT/teste-de-recrutamento-api-restful-de-funcion%C3%A1rios)
+Disponível em: [Trello](https://trello.com/b/qpvVZEUT/teste-de-recrutamento-api-restful-de-funcion%C3%A1rios)
 
 ## ⚙️ Pré-requisitos
 
